@@ -24,13 +24,15 @@ X_train_norm = x_scaler.transform(X_train)
 X_test_norm = x_scaler.transform(X_test)
 
 #%% Define and train the model
-LR = LogisticRegression()#C=0.5, multi_class='auto', solver='liblinear') 
+LR = LogisticRegression() #C=0.5, multi_class='auto', solver='liblinear') 
 LR.fit(X_train_norm, y_train) 
+train_score = LR.score(X_train,y_train)
 
 #%% Predicting labels and evaluate
 y_pred = LR.predict(X_test_norm) 
 report,rocfig=dp.evaluate_on_training_set(y_test, y_pred) 
 pred_fig=dp.plot_pred_original(y_pred,y_test,'Logistic Regression')
+report['training score']=train_score
 
 # save predict result
 rocfig.savefig('./result/LogisticRegression/LRroc.png')

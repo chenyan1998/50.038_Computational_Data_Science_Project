@@ -25,11 +25,13 @@ X_test_norm = x_scaler.transform(X_test)
 #%% Define and train the model
 Ada = AdaBoostClassifier(n_estimators=1000, learning_rate=0.1) # Define the model with parameters
 Ada.fit(X_train_norm, y_train) # Training the model
+train_score = Ada.score(X_train,y_train)
 
 #%% Predicting labels and evaluate
 y_pred = Ada.predict(X_test_norm) 
 report,rocfig=dp.evaluate_on_training_set(y_test, y_pred) 
 pred_fig=dp.plot_pred_original(y_pred,y_test,'AdaBoost')
+report['training score']=train_score
 
 # save predict result
 rocfig.savefig('./result/AdaBoost/AdaBoostroc.png')
