@@ -14,10 +14,8 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 
 #%% Data modifying
-data_df1 = pd.read_csv('./01.csv')
-data_df2 = pd.read_csv('./02.csv')
-data_df3 = pd.read_csv('./03.csv')
-data_df=pd.concat([data_df1,data_df2,data_df3],ignore_index=True)
+data_df = pd.read_csv('./newdata/2019.csv')
+#data_df=pd.concat([data_df1,data_df2,data_df3],ignore_index=True)
 X = data_df.drop(['Hit'],axis=1)
 Y = data_df['Hit']
 x_train, x_val, y_train, y_val = train_test_split(np.asarray(X), np.asarray(Y), test_size=0.3, shuffle= True)
@@ -70,7 +68,7 @@ CNN.fit(x_train_norm, y_train_binary,
 
 
 #%% testing
-test_df = pd.read_csv('./03.csv')
+test_df = pd.read_csv('./newdata/2020.csv')
 X_test = test_df.drop(['Hit'],axis=1)
 Y_test = test_df['Hit']
 x_test_norm = x_scaler.transform(X_test)
@@ -81,4 +79,4 @@ print('Test score:', score[0])
 print('Test accuracy:', score[1])
 
 #%% save the model
-CNN.save('./CNN')
+#CNN.save('./CNN')
