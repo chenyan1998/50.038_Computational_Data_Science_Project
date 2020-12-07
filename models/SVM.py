@@ -28,12 +28,15 @@ X_test_norm = x_scaler.transform(X_test)
 #%% Define and train the model
 SVM = SVC()#C=1.0, gamma='auto', kernel='rbf')
 SVM.fit(X_train_norm, y_train)
+train_score = SVM.score(X_train,y_train)
 
 #%% Predicting labels and evaluate
 y_pred = SVM.predict(X_test_norm) # Predicting labels for our test set using trained model
 report,rocfig=dp.evaluate_on_training_set(y_test, y_pred) #evaluate our model using newly defined function
 pred_fig=dp.plot_pred_original(y_pred,y_test,'SVM')
+report['training score']=train_score
 
+#%%
 # save predict result
 rocfig.savefig('./result/SVM/SVMroc.png')
 print(report)

@@ -13,3 +13,5 @@ weighted avg       0.61      0.60      0.60       468
 ConMatrix:
 [[119 110]
  [ 75 164]]
+training score:
+0.9166666666666666

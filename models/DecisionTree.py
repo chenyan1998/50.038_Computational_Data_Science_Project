@@ -28,6 +28,7 @@ DT = tree.DecisionTreeClassifier(max_depth=10, min_samples_leaf=2)
 DT.fit(X_train,y_train) # Using default parameters
 plt.figure(figsize=(14,12))
 tree.plot_tree(DT)
+train_score = DT.score(X_train,y_train)
 
 
 #%%Predicting labels for our test set using model
@@ -35,7 +36,9 @@ tree.plot_tree(DT)
 y_pred = DT.predict(X_test_norm) 
 report,rocfig=dp.evaluate_on_training_set(y_test, y_pred) 
 pred_fig=dp.plot_pred_original(y_pred,y_test,'Decision Tree')
+report['training score']=train_score
 
+#%%
 # save predict result
 rocfig.savefig('./result/DecisonTree/DTroc-10.png')
 print(report)

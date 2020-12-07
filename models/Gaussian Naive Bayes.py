@@ -21,14 +21,17 @@ x_scaler = MinMaxScaler()
 x_scaler.fit(X_train)
 X_train_norm = x_scaler.transform(X_train)
 X_test_norm = x_scaler.transform(X_test)
+
 #%% Define and train the model
 GNB = GaussianNB()
 GNB.fit(X_train_norm, y_train) 
+train_score = GNB.score(X_train,y_train)
 
 #%% Predicting labels and evaluate
 y_pred = GNB.predict(X_test_norm) 
 report,rocfig =dp.evaluate_on_training_set(y_test, y_pred) 
 pred_fig=dp.plot_pred_original(y_pred,y_test,'Gaussian Naive Bayes')
+report['training score']=train_score
 
 # save predict result
 rocfig.savefig('./result/Gaussian Naive Bayes/GNBroc.png')
