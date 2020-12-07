@@ -1,0 +1,15 @@
+AUC:
+0.6029215618205405
+report:
+              precision    recall  f1-score   support
+
+         0.0       0.61      0.52      0.56       229
+         1.0       0.60      0.69      0.64       239
+
+    accuracy                           0.60       468
+   macro avg       0.61      0.60      0.60       468
+weighted avg       0.61      0.60      0.60       468
+
+ConMatrix:
+[[119 110]
+ [ 75 164]]

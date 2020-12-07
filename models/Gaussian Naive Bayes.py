@@ -7,7 +7,7 @@ from sklearn.externals import joblib
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.naive_bayes import GaussianNB
 
-data_df = pd.read_csv('./CleanData/01.csv')
+data_df = pd.read_csv('./newdata/2019.csv')
 
 # visualise how balance our dataset is
 sns.countplot(x="Hit", data=data_df, palette="muted")
@@ -27,9 +27,15 @@ GNB.fit(X_train_norm, y_train)
 
 #%% Predicting labels and evaluate
 y_pred = GNB.predict(X_test_norm) 
-report,roc=dp.evaluate_on_training_set(y_test, y_pred) 
+report,rocfig =dp.evaluate_on_training_set(y_test, y_pred) 
 pred_fig=dp.plot_pred_original(y_pred,y_test,'Gaussian Naive Bayes')
-pred_fig.savefig('./pred_fig/Gaussian Naive Bayes')
+
+# save predict result
+rocfig.savefig('./result/Gaussian Naive Bayes/GNBroc.png')
+print(report)
+with open('./result/Gaussian Naive Bayes/GNBreport', 'w') as f:
+    [f.write('{0}:\n{1}\n'.format(key, value)) for key, value in report.items()]
+pred_fig.savefig('./result/Gaussian Naive Bayes/GNBpred.png')
 
 #%%
-joblib.dump(GNB, './GNB.sav')
+joblib.dump(GNB, './trainedModel/GNB.sav')

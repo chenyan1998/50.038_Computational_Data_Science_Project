@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from sklearn.externals import joblib
 from sklearn.preprocessing import MinMaxScaler
 
-data_df = pd.read_csv('./CleanData/01.csv')
+data_df = pd.read_csv('./newdata/2019.csv')
 
 # visualise how balance our dataset is
 sns.countplot(x="Hit", data=data_df, palette="muted")
@@ -28,9 +28,15 @@ Ada.fit(X_train_norm, y_train) # Training the model
 
 #%% Predicting labels and evaluate
 y_pred = Ada.predict(X_test_norm) 
-report,roc=dp.evaluate_on_training_set(y_test, y_pred) 
+report,rocfig=dp.evaluate_on_training_set(y_test, y_pred) 
 pred_fig=dp.plot_pred_original(y_pred,y_test,'AdaBoost')
-pred_fig.savefig('./pred_fig/AdaBoost')
+
+# save predict result
+rocfig.savefig('./result/AdaBoost/AdaBoostroc.png')
+print(report)
+with open('./result/AdaBoost/AdaBoostreport', 'w') as f:
+    [f.write('{0}:\n{1}\n'.format(key, value)) for key, value in report.items()]
+pred_fig.savefig('./result/AdaBoost/AdaBoostpred.png')
 
 #%%
-joblib.dump(GNB, './GNB.sav')
+joblib.dump(Ada, './trainedModel/Ada.sav')

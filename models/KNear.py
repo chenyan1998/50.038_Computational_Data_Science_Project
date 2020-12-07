@@ -8,7 +8,7 @@ from sklearn.externals import joblib
 from sklearn.preprocessing import MinMaxScaler
 
 # data preparation
-data_df = pd.read_csv('./CleanData/01.csv')
+data_df = pd.read_csv('./newdata/2019.csv')
 
 # visualise how balance our dataset is
 sns.countplot(x="Hit", data=data_df, palette="muted")
@@ -28,9 +28,15 @@ KN = KNeighborsClassifier(n_neighbors=5)
 KN.fit(X_train_norm, y_train) # Training the model
 #%% Predicting labels and evaluate
 y_pred = KN.predict(X_test_norm) 
-report,roc=dp.evaluate_on_training_set(y_test, y_pred) 
+report,rocfig =dp.evaluate_on_training_set(y_test, y_pred) 
 pred_fig=dp.plot_pred_original(y_pred,y_test,'K Nearest Neighbor')
-pred_fig.savefig('./pred_fig/K Nearest Neighbor')
+
+# save predict result
+rocfig.savefig('./result/K Nearest Neighbor/KNNroc.png')
+print(report)
+with open('./result/K Nearest Neighbor/KNNreport', 'w') as f:
+    [f.write('{0}:\n{1}\n'.format(key, value)) for key, value in report.items()]
+pred_fig.savefig('./result/K Nearest Neighbor/KNNpred.png')
 
 #%%
-joblib.dump(KN, './KN.sav')
+joblib.dump(KN, './trainedModel/KN.sav')
