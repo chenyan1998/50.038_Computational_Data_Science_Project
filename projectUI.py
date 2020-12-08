@@ -60,8 +60,8 @@ def main():
     df_2020 = pd.read_csv("./newdata/2019.csv")
     if st.sidebar.checkbox("Data Visualisation"):
         st.title("plots")
-        figu = px.scatter(tracks_df,x='danceability',y='instrumentalness',color='Hit',hover_data=['tempo','energy'],title='2019 tempo by energy')
-        fig = px.scatter(df_2020,x='instrumentalness',y='danceability',color='Hit',hover_data=['tempo','energy'],title="2020 tempo by energy")
+        figu = px.scatter(tracks_df,x='tempo',y='energy',color='Hit',hover_data=['danceability','instrumentalness'],title='2019 tempo by energy')
+        fig = px.scatter(df_2020,x='tempo',y='energy',color='Hit',hover_data=['danceability','instrumentalness'],title="2020 tempo by energy")
         st.plotly_chart(figu)
         st.plotly_chart(fig)
         st.vega_lite_chart(tracks_df, {'mark': {'type': 'circle', 'tooltip': True},
