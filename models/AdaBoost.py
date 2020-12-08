@@ -4,7 +4,7 @@ import DataProcessor as dp
 from sklearn.model_selection import train_test_split
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.externals import joblib
+import joblib
 from sklearn.preprocessing import MinMaxScaler
 
 data_df = pd.read_csv('./newdata/2019.csv')
@@ -26,6 +26,7 @@ X_test_norm = x_scaler.transform(X_test)
 Ada = AdaBoostClassifier(n_estimators=1000, learning_rate=0.1) # Define the model with parameters
 Ada.fit(X_train_norm, y_train) # Training the model
 train_score = Ada.score(X_train,y_train)
+feature_importance=Ada.feature_importances_
 
 #%% Predicting labels and evaluate
 y_pred = Ada.predict(X_test_norm) 
@@ -34,6 +35,11 @@ pred_fig=dp.plot_pred_original(y_pred,y_test,'AdaBoost')
 report['training score']=train_score
 
 # save predict result
+features=list(data_df.columns)
+
+for i,v in enumerate(feature_importance):
+    report[features[i]]=v
+
 rocfig.savefig('./result/AdaBoost/AdaBoostroc.png')
 print(report)
 with open('./result/AdaBoost/AdaBoostreport', 'w') as f:

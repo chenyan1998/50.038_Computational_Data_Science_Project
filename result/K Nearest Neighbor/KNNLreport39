@@ -1,0 +1,27 @@
+AUC:
+0.6912535857192451
+report:
+              precision    recall  f1-score   support
+
+         0.0       0.70      0.64      0.67       229
+         1.0       0.68      0.74      0.71       239
+
+    accuracy                           0.69       468
+   macro avg       0.69      0.69      0.69       468
+weighted avg       0.69      0.69      0.69       468
+
+ConMatrix:
+[[147  82]
+ [ 62 177]]
+training score:
+0.5045787545787546
+key:
+0.128021978021978
+mode:
+0.08626373626373625
+speechiness:
+0.0487179487179487
+valence:
+0.06501831501831498
+duration_ms:
+0.05677655677655673

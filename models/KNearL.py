@@ -11,7 +11,7 @@ from sklearn.inspection import permutation_importance
 
 # data preparation
 data_df = pd.read_csv('./newdata/2019.csv')
-
+data_df=data_df.drop(['danceability','energy','loudness','acousticness','instrumentalness','liveness','tempo','time_signature'],axis=1)
 # visualise how balance our dataset is
 sns.countplot(x="Hit", data=data_df, palette="muted")
 
@@ -45,12 +45,12 @@ report['training score']=train_score
 features=list(data_df.columns)
 for i,v in enumerate(feature_importance):
     report[features[i]]=v
-rocfig.savefig('./result/K Nearest Neighbor/KNNroc'+str(k)+'.png')
+rocfig.savefig('./result/K Nearest Neighbor/KNNLroc'+str(k)+'.png')
 
 print(report)
-with open('./result/K Nearest Neighbor/KNNreport'+str(k), 'w') as f:
+with open('./result/K Nearest Neighbor/KNNLreport'+str(k), 'w') as f:
     [f.write('{0}:\n{1}\n'.format(key, value)) for key, value in report.items()]
-pred_fig.savefig('./result/K Nearest Neighbor/KNNpred'+str(k)+'.png')
+pred_fig.savefig('./result/K Nearest Neighbor/KNNLpred'+str(k)+'.png')
 
 #%%
-joblib.dump(KN, './trainedModel/KN'+str(k)+'.sav')
+joblib.dump(KN, './trainedModel/KNL'+str(k)+'.sav')
