@@ -23,9 +23,9 @@ X_train_norm = x_scaler.transform(X_train)
 X_test_norm = x_scaler.transform(X_test)
 
 #%% Define and train the model
-RF = RandomForestClassifier()#n_estimators = 50) # Define the model
+RF = RandomForestClassifier(n_estimators = 100) # Define the model
 RF.fit(X_train_norm, y_train) 
-train_score = RF.score(X_train,y_train)
+train_score = RF.score(X_train_norm,y_train)
 feature_importance=RF.feature_importances_
 # print(feature_immportance)
 

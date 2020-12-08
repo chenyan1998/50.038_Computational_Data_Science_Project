@@ -29,7 +29,7 @@ X_test_norm = x_scaler.transform(X_test)
 k=39
 KN = KNeighborsClassifier(n_neighbors=k)
 KN.fit(X_train_norm, y_train) # Training the model
-train_score = KN.score(X_train,y_train)
+train_score = KN.score(X_train_norm,y_train)
 # perform permutation importance
 results = permutation_importance(KN, X_train_norm, y_train,random_state=0)
 feature_importance = results.importances_mean
