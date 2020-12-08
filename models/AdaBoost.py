@@ -25,7 +25,7 @@ X_test_norm = x_scaler.transform(X_test)
 #%% Define and train the model
 Ada = AdaBoostClassifier(n_estimators=1000, learning_rate=0.1) # Define the model with parameters
 Ada.fit(X_train_norm, y_train) # Training the model
-train_score = Ada.score(X_train,y_train)
+train_score = Ada.score(X_train_norm,y_train)
 feature_importance=Ada.feature_importances_
 
 #%% Predicting labels and evaluate
