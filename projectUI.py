@@ -18,8 +18,7 @@ scaler = joblib.load('./trainedModel/knn_scaler.sav')
 rdmodel = joblib.load("./trainedModel/RF.sav")
 admodel = joblib.load("./trainedModel/Ada.sav")
 # py -3 -m streamlit run projectUI.py  
-st.sidebar.title('Hit Song Prediction')
-st.sidebar.markdown('CDS Project Group 8')
+
 
 
 # st.write('Attempt to write a table')
@@ -56,6 +55,8 @@ def predictSong(option):
     return int(y_pred),int(rf_pred),int(ad_pred),spotify_url
 
 def main():
+    st.sidebar.title('Hit Song Prediction')
+    st.sidebar.markdown('CDS Project Group 8')
     tracks_df = pd.read_csv("./newdata/2019.csv")
     df_2020 = pd.read_csv("./newdata/2019.csv")
     if st.sidebar.checkbox("Data Visualisation"):
