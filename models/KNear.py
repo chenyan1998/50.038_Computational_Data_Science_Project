@@ -4,9 +4,10 @@ import DataProcessor as dp
 from sklearn.model_selection import train_test_split
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.externals import joblib
+import joblib
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import accuracy_score
+from sklearn.inspection import permutation_importance
 
 # data preparation
 data_df = pd.read_csv('./newdata/2019.csv')
@@ -28,8 +29,12 @@ X_test_norm = x_scaler.transform(X_test)
 k=39
 KN = KNeighborsClassifier(n_neighbors=k)
 KN.fit(X_train_norm, y_train) # Training the model
-train_score = KN.score(X_train,y_train)
-
+train_score = KN.score(X_train_norm,y_train)
+# perform permutation importance
+results = permutation_importance(KN, X_train_norm, y_train,random_state=0)
+feature_importance = results.importances_mean
+print(feature_importance)
+#%%
 # Predicting labels and evaluate
 y_pred = KN.predict(X_test_norm)
 report,rocfig =dp.evaluate_on_training_set(y_test, y_pred) 
@@ -37,7 +42,11 @@ pred_fig=dp.plot_pred_original(y_pred,y_test,'K Nearest Neighbor')
 report['training score']=train_score
 
 #%%save predict result
+features=list(data_df.columns)
+for i,v in enumerate(feature_importance):
+    report[features[i]]=v
 rocfig.savefig('./result/K Nearest Neighbor/KNNroc'+str(k)+'.png')
+
 print(report)
 with open('./result/K Nearest Neighbor/KNNreport'+str(k), 'w') as f:
     [f.write('{0}:\n{1}\n'.format(key, value)) for key, value in report.items()]

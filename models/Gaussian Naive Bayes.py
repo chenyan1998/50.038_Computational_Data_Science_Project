@@ -3,7 +3,7 @@ import DataProcessor as dp
 from sklearn.model_selection import train_test_split
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.externals import joblib
+import joblib
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.naive_bayes import GaussianNB
 
@@ -25,7 +25,7 @@ X_test_norm = x_scaler.transform(X_test)
 #%% Define and train the model
 GNB = GaussianNB()
 GNB.fit(X_train_norm, y_train) 
-train_score = GNB.score(X_train,y_train)
+train_score = GNB.score(X_train_norm,y_train)
 
 #%% Predicting labels and evaluate
 y_pred = GNB.predict(X_test_norm) 

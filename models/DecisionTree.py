@@ -4,7 +4,7 @@ from sklearn import tree
 from sklearn.model_selection import train_test_split
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.externals import joblib
+import joblib
 from sklearn.preprocessing import MinMaxScaler
 
 # data preparation
@@ -28,7 +28,7 @@ DT = tree.DecisionTreeClassifier(max_depth=10, min_samples_leaf=2)
 DT.fit(X_train,y_train) # Using default parameters
 plt.figure(figsize=(14,12))
 tree.plot_tree(DT)
-train_score = DT.score(X_train,y_train)
+train_score = DT.score(X_train_norm,y_train)
 
 
 #%%Predicting labels for our test set using model

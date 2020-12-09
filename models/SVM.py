@@ -4,7 +4,7 @@ import DataProcessor as dp
 from sklearn.model_selection import train_test_split
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.externals import joblib
+import joblib
 from sklearn.preprocessing import MinMaxScaler
 import json
 
@@ -28,7 +28,7 @@ X_test_norm = x_scaler.transform(X_test)
 #%% Define and train the model
 SVM = SVC()#C=1.0, gamma='auto', kernel='rbf')
 SVM.fit(X_train_norm, y_train)
-train_score = SVM.score(X_train,y_train)
+train_score = SVM.score(X_train_norm,y_train)
 
 #%% Predicting labels and evaluate
 y_pred = SVM.predict(X_test_norm) # Predicting labels for our test set using trained model
