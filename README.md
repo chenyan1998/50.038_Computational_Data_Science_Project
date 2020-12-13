@@ -13,7 +13,6 @@ When we listen to songs, despite the different taste in music, one can more or l
 - Gladys Chua   1003585
 - Pang Luying   1003631
 
-#
 
 ## UI demo
 ```
