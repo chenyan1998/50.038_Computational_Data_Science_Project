@@ -15,6 +15,18 @@ When we listen to songs, despite the different taste in music, one can more or l
 
 #
 
+## Get your spotify credentials
+Since we are using spotify API to extract the features of songs, we need spotify credentials for the code to run properly. You can follow the steps below to get your own spotify credentials.
+- Login your spotify developer account or create a spotify developer account if you do not have one.
+- Create a client ID, you can do by pressing the green CREATE A CLIENT ID button.
+- You will get a pop up. On the pop up, give it a any name you want, choose non-commercial use, agree all the terms and conditions and submit the from.
+- Go to your developer dashboard page, click on the new app you just created.
+- On your app’s dashboard page, you’ll see your client ID on the top left-hand side. Copy paste this client ID to the right place in DataGen.py and projectUI.py file.
+- Underneath your client ID, you’ll see “Show Client Secret” in green. Click on it and you will see your Client Secret. Copy paste this client secret to the right place in DataGen.py and projectUI.py file.
+- Done.
+
+#
+
 ## UI demo
 ```
 pip install streamlit
