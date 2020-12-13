@@ -7,9 +7,8 @@ import joblib
 import plotly.express as px
 from spotipy.oauth2 import SpotifyClientCredentials     # to access authorised Spotify data
 
-# Add in your client_id and client_secret inside ''
-client_id = ''      
-client_secret = ''
+client_id = '89bfa825504b41088d6e805bf8072b84'
+client_secret = 'bfed43c37bd74b9284fdc9f5ff17a171'
 
 client_credentials_manager = SpotifyClientCredentials(client_id, client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)        # spotify object to access API
@@ -18,6 +17,12 @@ model = joblib.load('./trainedModel/KN39.sav')
 scaler = joblib.load('./trainedModel/knn_scaler.sav')
 rdmodel = joblib.load("./trainedModel/RF.sav")
 admodel = joblib.load("./trainedModel/Ada.sav")
+# py -3 -m streamlit run projectUI.py  
+
+
+
+# st.write('Attempt to write a table')
+# st.write(pd.DataFrame({'1st column':[1,2,3,4],'2nd column':[100,200,300,400]}))
 
 
 def getSong(artist,song):
@@ -100,6 +105,16 @@ def main():
                 elif output3 == 0:
                     st.markdown("From the **Adaboost** model,\nThis song is predicted to be a **non-hit song**")
                 st.markdown(url)
+
+
+
+# left_column, right_column = st.beta_columns(2)
+# pressed = left_column.button('Press me?')
+# if pressed:
+#     right_column.write("Woohoo!")
+
+# expander = st.beta_expander("FAQ")
+# expander.write("Here you could put in some really, really long explanations...")
 
 if __name__=="__main__":
     main()
