@@ -7,8 +7,9 @@ import joblib
 import plotly.express as px
 from spotipy.oauth2 import SpotifyClientCredentials     # to access authorised Spotify data
 
-client_id = '89bfa825504b41088d6e805bf8072b84'
-client_secret = 'bfed43c37bd74b9284fdc9f5ff17a171'
+# Add in your client_id and client_secret inside ''
+client_id = ''
+client_secret = ''
 
 client_credentials_manager = SpotifyClientCredentials(client_id, client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)        # spotify object to access API
@@ -17,12 +18,6 @@ model = joblib.load('./trainedModel/KN39.sav')
 scaler = joblib.load('./trainedModel/knn_scaler.sav')
 rdmodel = joblib.load("./trainedModel/RF.sav")
 admodel = joblib.load("./trainedModel/Ada.sav")
-# py -3 -m streamlit run projectUI.py  
-
-
-
-# st.write('Attempt to write a table')
-# st.write(pd.DataFrame({'1st column':[1,2,3,4],'2nd column':[100,200,300,400]}))
 
 
 def getSong(artist,song):
@@ -38,20 +33,16 @@ def getSong(artist,song):
 
 def predictSong(option):
     spotify_url = option
-    # print(type(spotify_url))
     features = sp.audio_features(spotify_url)
-    # print("---------------------------------------------------------------------------",features)
     feature_names= ['danceability','energy','key','loudness','mode','speechiness','acousticness','instrumentalness','liveness','valence','tempo','type','id','uri','track_href','analysis_url','duration_ms','time_signature']
     drop_features=['type','id','uri','track_href','analysis_url']
     features_df = pd.DataFrame(columns=feature_names)
     features_df = features_df.append(features[0],ignore_index=True)
     features_df = features_df.drop(drop_features,axis=1)
     test_norm = scaler.transform(features_df.to_numpy())
-    # print(features_df,test_norm)
     y_pred=model.predict(test_norm)
     rf_pred = rdmodel.predict(test_norm)
     ad_pred = admodel.predict(test_norm)
-    # print(y_pred)
     return int(y_pred),int(rf_pred),int(ad_pred),spotify_url
 
 def main():
@@ -83,7 +74,7 @@ def main():
     
     if st.checkbox("Get Song from Spotify"):
         options = getSong(artist,song)
-        # print(options)
+        
         if len(options)==0:
             st.title("The song is not found/available in spotify. Do you want to check your spelling or try another song?")
         else:
@@ -105,16 +96,6 @@ def main():
                 elif output3 == 0:
                     st.markdown("From the **Adaboost** model,\nThis song is predicted to be a **non-hit song**")
                 st.markdown(url)
-
-
-
-# left_column, right_column = st.beta_columns(2)
-# pressed = left_column.button('Press me?')
-# if pressed:
-#     right_column.write("Woohoo!")
-
-# expander = st.beta_expander("FAQ")
-# expander.write("Here you could put in some really, really long explanations...")
 
 if __name__=="__main__":
     main()
